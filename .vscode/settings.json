@@ -1,0 +1,41 @@
+{
+  // TypeScript/JavaScript Auto Import Settings
+  "typescript.suggest.autoImports": true,
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "typescript.preferences.importModuleSpecifier": "relative",
+  "typescript.preferences.includePackageJsonAutoImports": "auto",
+  
+  "javascript.suggest.autoImports": true,
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "javascript.preferences.importModuleSpecifier": "relative",
+  "javascript.preferences.includePackageJsonAutoImports": "auto",
+  
+  // Auto organize imports on save
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": "explicit",
+    "source.fixAll": "explicit"
+  },
+  
+  // Enable quick suggestions for imports
+  "editor.quickSuggestions": {
+    "other": true,
+    "comments": false,
+    "strings": false
+  },
+  
+  // Show import suggestions
+  "editor.suggest.showImports": true,
+  
+  // Auto complete settings
+  "editor.suggestSelection": "first",
+  "editor.tabCompletion": "on",
+  
+  // Format on save
+  "editor.formatOnSave": true,
+  
+  // File associations for TypeScript/React
+  "files.associations": {
+    "*.tsx": "typescriptreact",
+    "*.ts": "typescript"
+  }
+}
