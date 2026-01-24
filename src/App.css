@@ -342,7 +342,7 @@
       @apply mt-5 mb-1;
 
       img {
-          @apply w-full aspect-5/1 rounded-xl object-cover shadow-md;
+          @apply w-full aspect-[5/1] rounded-xl object-cover shadow-md;
       }
 
       .placeholder {
