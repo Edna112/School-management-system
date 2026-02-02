@@ -1,6 +1,7 @@
 import { Subject } from "@/types";
+import { BACKEND_BASE_URL } from "@/constants";
 
-export const API_URL = "https://api.fake-rest.refine.dev";
+export const API_URL = `${BACKEND_BASE_URL}/subjects`;
 
 export const MOCK_SUBJECTS: Subject[] = [
     {
