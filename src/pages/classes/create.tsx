@@ -24,7 +24,7 @@ import UploadWidget from "@/components/upload-widget";
 import { classSchema } from "@/lib/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useBack } from "@refinedev/core";
-import { useForm } from "react-hook-form";
+import { useForm } from "@refinedev/react-hook-form";
 import * as z from "zod";
 
 const Create = () => {
