@@ -13,10 +13,12 @@ import { useNotificationProvider } from "./components/refine-ui/notification/use
 import { ThemeProvider } from "./components/refine-ui/theme/theme-provider";
 import { dataProvider } from "./providers/data.ts";
 import Dashboard from "./pages/dashboard";
-import { BookOpenIcon, HomeIcon } from "lucide-react";
+import { BookOpenIcon, GraduationCap, HomeIcon,  } from "lucide-react";
 import { Layout } from "./components/refine-ui/layout/layout";
 import SubjectsList from "./pages/subjects/list";
 import SubjectsCreate from "./pages/subjects/create";
+import ClassesList from "./pages/classes/create.tsx";
+import ClassesCreate from "./pages/classes/list.tsx";
 
 
 
@@ -48,7 +50,16 @@ function App() {
                   list: "/subjects",
                   create: "/subjects/create",
                   meta: { label: "Subjects", icon: <BookOpenIcon /> }
-                }
+                },
+
+                {
+                  name: "classes",
+                  list: "/classes",
+                  create: "/classes/create",
+                  meta: { label: "Classes", icon: <GraduationCap className="w-4 h-4" /> }
+                },
+
+
               ]}
             >
               <Routes>
@@ -64,7 +75,10 @@ function App() {
                   <Route path="create" element={<SubjectsCreate />} />
                 </Route>
 
-                
+                <Route path = "classes">
+                  <Route index element={<ClassesList />} />
+                  <Route path="create" element={<ClassesCreate />} />
+                </Route>
               </Routes>
               <Toaster />
               <RefineKbar />
