@@ -17,8 +17,8 @@ import { BookOpenIcon, GraduationCap, HomeIcon,  } from "lucide-react";
 import { Layout } from "./components/refine-ui/layout/layout";
 import SubjectsList from "./pages/subjects/list";
 import SubjectsCreate from "./pages/subjects/create";
-import ClassesList from "./pages/classes/create.tsx";
-import ClassesCreate from "./pages/classes/list.tsx";
+import ClassesList from "./pages/classes/list.tsx";
+import ClassesCreate from "./pages/classes/create.tsx";
 
 
 
