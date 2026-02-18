@@ -3,7 +3,14 @@ import { useEffect, useRef, useState } from "react";
 import { CLOUDINARY_CLOUD_NAME, CLOUDINARY_UPLOAD_PRESET } from "../constants";
 import { UploadWidgetValue } from "../types";
 
-const UploadWidget = ({ value = null, onChange, disabled = false, field }) => {
+interface UploadWidgetPropsWithField {
+  value?: UploadWidgetValue | null;
+  onChange?: (file: UploadWidgetValue | null, field?: unknown) => void;
+  disabled?: boolean;
+  field?: unknown;
+}
+
+const UploadWidget = ({ value = null, onChange, disabled = false, field }: UploadWidgetPropsWithField) => {
   const widgetRef = useRef<CloudinaryWidget | null>(null);
   const onChangeRef = useRef(onChange);
   const fieldRef = useRef(field);
@@ -47,7 +54,7 @@ const UploadWidget = ({ value = null, onChange, disabled = false, field }) => {
         (error, result) => {
           if (!error && result.event === "success") {
             const payload: UploadWidgetValue = {
-              url: result.info.secure_url || result.info.url,
+              url: result.info.secure_url ?? (result.info as { url?: string }).url ?? "",
               publicId: result.info.public_id,
             };
             setPreview(payload);

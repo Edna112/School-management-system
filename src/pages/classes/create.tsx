@@ -27,7 +27,7 @@ import { useBack } from "@refinedev/core";
 import { useForm } from "@refinedev/react-hook-form";
 import * as z from "zod";
 import { useList } from "@refinedev/core";
-import { Subject, User } from "@/types";
+import { Subject, UploadWidgetValue, User } from "@/types";
 
 
 const Create = () => {
@@ -91,7 +91,7 @@ const teachersLoading = teachersQuery.isLoading;
 //watching the bannerCldPubId field
   const bannerPublicId = form.watch("bannerCldPubId");
 
-  const setBannerImage = (file , field) => {
+  const setBannerImage = (file: { url: string; publicId: string } | null, field: { onChange: (value: string) => void }) => {
     if (file) {
       field.onChange(file.url);
       form.setValue("bannerCldPubId", file.publicId, {
@@ -151,8 +151,8 @@ const teachersLoading = teachersQuery.isLoading;
                                 }
                               : null
                           }
-                          onChange={(file, field) =>
-                            setBannerImage(file, field)
+                          onChange={(file: UploadWidgetValue | null, field?: unknown) =>
+                            setBannerImage(file, field as { onChange: (value: string) => void })
                           }
                           field={field}
                         />
