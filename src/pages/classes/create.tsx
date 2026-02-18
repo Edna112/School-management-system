@@ -26,6 +26,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useBack } from "@refinedev/core";
 import { useForm } from "@refinedev/react-hook-form";
 import * as z from "zod";
+import { useList } from "@refinedev/core";
+import { Subject, User } from "@/types";
+
 
 const Create = () => {
   const back = useBack();
@@ -46,33 +49,49 @@ const Create = () => {
   });
 
   const {
+
+    refineCore: { onFinish },
     handleSubmit,
     formState: { isSubmitting, errors },
     control,
   } = form;
 
-  const onSubmit = (values: z.infer<typeof classSchema>) => {
+  const onSubmit = async(values: z.infer<typeof classSchema>) => {
     try {
-      console.log(values);
+     await onFinish(values);
     } catch (e) {
       console.log("Error creating new classes", e);
     }
   };
-  const teachers = [
-    { id: 1, name: "Alice Johnson" },
-    { id: 2, name: "Brian Smith" },
-    { id: 3, name: "Carla Gomez" },
-  ];
+  //fetching the teachers and subjects from the api
+  const {query : subjectsQuery} = useList<Subject>({
+    resource: 'subjects',
+    pagination: {
+      pageSize: 100,
+    }
+  })
+//fetching the teachers from the api
+  const {query : teachersQuery} = useList<User>({
+    resource: 'users',
+    filters: [
+      {field: 'role', operator: 'eq', value: 'teacher'}
+    ],
+    pagination: {
+      pageSize: 100,
+    }
+  })
 
-  const subjects = [
-    { id: 1, name: "Mathematics", code: "MATH" },
-    { id: 2, name: "English Literature", code: "ENGL" },
-    { id: 3, name: "Computer Science", code: "CS" },
-  ];
+//fetching the subjects and teachers from the api(the actual query is in the useList hook)
+const subjects = subjectsQuery.data?.data ?? [];
+const subjectsLoading = subjectsQuery.isLoading;
 
+const teachers = teachersQuery.data?.data ?? [];
+const teachersLoading = teachersQuery.isLoading;
+
+//watching the bannerCldPubId field
   const bannerPublicId = form.watch("bannerCldPubId");
 
-  const setBannerImage = (file, field) => {
+  const setBannerImage = (file , field) => {
     if (file) {
       field.onChange(file.url);
       form.setValue("bannerCldPubId", file.publicId, {
@@ -185,6 +204,7 @@ const Create = () => {
                               field.onChange(Number(value))
                             }
                             value={field?.value?.toString()}
+                            disabled={subjectsLoading}
                           >
                             <SelectTrigger className="w-full">
                               <SelectValue placeholder="Select A Subject" />
@@ -218,6 +238,7 @@ const Create = () => {
                           <Select
                             onValueChange={(value) => field.onChange(value)}
                             value={field?.value?.toString()}
+                            disabled={teachersLoading}
                           >
                             <SelectTrigger className="w-full">
                               <SelectValue placeholder="Select a teacher" />
